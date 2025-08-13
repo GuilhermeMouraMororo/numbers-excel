@@ -12,13 +12,21 @@ def index():
 @app.route("/generate", methods=["POST"])
 def generate_excel():
     numbers_str = request.form.get("numbers")
-    if not numbers_str:
+    n_str = request.form.get("n", "").strip()
+    if not numbers_str or not n_str:
         return "No numbers provided", 400
 
     try:
         numbers = [int(x.strip()) for x in numbers_str.split(",")]
     except ValueError:
         return "Invalid input. Please enter only numbers separated by commas.", 400
+    try:
+        numbers = parse_numbers(numbers_str)
+        n = int(n_str)
+        if n <= 0:
+            raise ValueError
+    except ValueError:
+        abort(400, "Invalid input. Use integers only and n > 0.")
 
     # Create Excel workbook
     wb = Workbook()
@@ -26,9 +34,8 @@ def generate_excel():
     ws.title = "Numbers"
 
     # Write numbers to column A
-    ws.append(["Numbers"])  # header
-    for num in numbers:
-        ws.append([num])
+   for _ in range(n):
+        ws.append(numbers)
 
     # Save to memory buffer
     output = io.BytesIO()
