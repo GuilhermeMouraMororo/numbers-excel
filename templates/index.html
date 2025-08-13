@@ -1,18 +1,31 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Numbers to Excel</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Numbers → Excel</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; max-width: 680px; margin: 40px auto; padding: 0 16px; }
+    form { display: grid; gap: 12px; }
+    input, button, textarea { font-size: 16px; padding: 10px; }
+    label { font-weight: 600; }
+    .hint { color: #666; font-size: 14px; }
+    button { cursor: pointer; }
+  </style>
 </head>
 <body>
-    <h1>Enter Numbers</h1>
-    <form action="/generate" method="post">
-        <label>Numbers (comma separated):</label>
-        <input type="text" name="numbers">
-        <br><br>
-        <label>Repeat count (n):</label>
-        <input type="number" name="n">
-        <br><br>
-        <button type="submit">Generate Excel</button>
-    </form>
+  <h1>Numbers → Excel</h1>
+  <p>Enter a list of integers and how many times to repeat the row. You’ll get an Excel file to download.</p>
+
+  <form method="POST" action="/generate">
+    <label for="numbers">Numbers (comma/space separated)</label>
+    <textarea id="numbers" name="numbers" rows="3" placeholder="e.g. 4, 5, 6" required></textarea>
+    <div class="hint">Examples: <code>4, 5, 6</code> or <code>4 5 6</code> or <code>4;5;6</code></div>
+
+    <label for="n">Repetitions (n)</label>
+    <input id="n" name="n" type="number" min="1" step="1" placeholder="e.g. 3" required />
+
+    <button type="submit">Generate Excel</button>
+  </form>
 </body>
 </html>
