@@ -25,12 +25,8 @@ def generate_excel():
     ws = wb.active
     ws.title = "Numbers"
 
-    alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-
-    ws.append(["Lista de Números"])
-    for i in range(1, n + 1):
-        for j in range(len(numbers)):
-            ws[alphabet[j] + str(i)] = numbers[j]
+    for _ in range(n):
+        ws.append(numbers)
 
     # Save to memory buffer
     output = io.BytesIO()
