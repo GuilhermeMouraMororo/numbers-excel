@@ -13,20 +13,22 @@ def index():
 def generate_excel():
     numbers_str = request.form.get("numbers")
     if not numbers_str:
-        return "Nenhum número enviado.", 400
+        return "No numbers provided", 400
 
     try:
         numbers = [int(x.strip()) for x in numbers_str.split(",")]
     except ValueError:
-        return "Input inválido, por favor enviar apenas números separados por vírgulas.", 400
+        return "Invalid input. Please enter only numbers separated by commas.", 400
 
     # Create Excel workbook
     wb = Workbook()
     ws = wb.active
     ws.title = "Numbers"
 
-    for _ in range(n):
-        ws.append(numbers)
+    # Write numbers to column A
+    ws.append(["Numbers"])  # header
+    for num in numbers:
+        ws.append([num])
 
     # Save to memory buffer
     output = io.BytesIO()
